@@ -46,7 +46,7 @@ public class ClickController {
 	@PostMapping(value="/up/{voter}")
 	public void postUp(@PathVariable("voter") String voter) {
 		if(!gauges.containsKey(voter)) {
-			gauges.put(voter, meterRegistry.gauge("meetup.thumbs", Arrays.asList(Tag.of("thumb", "serverless")), new AtomicInteger(0)));
+			gauges.put(voter, meterRegistry.gauge("meetup.thumbs", Arrays.asList(Tag.of("thumb", voter)), new AtomicInteger(0)));
 		}
 		gauges.get(voter).incrementAndGet();
 		
@@ -57,7 +57,7 @@ public class ClickController {
 	@PostMapping(value="/down/{voter}")
 	public void postDown(@PathVariable("voter") String voter) {
 		if(!gauges.containsKey(voter)) {
-			gauges.put(voter, meterRegistry.gauge("meetup.thumbs", Arrays.asList(Tag.of("thumb", "serverless")), new AtomicInteger(0)));
+			gauges.put(voter, meterRegistry.gauge("meetup.thumbs", Arrays.asList(Tag.of("thumb", voter)), new AtomicInteger(0)));
 		}
 		
 		gauges.get(voter).decrementAndGet();
