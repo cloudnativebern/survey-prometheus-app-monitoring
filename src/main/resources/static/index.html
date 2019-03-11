@@ -3,71 +3,128 @@
 <head>
 <meta charset="utf-8"/>
 <title>Cloud Native Meetup Example</title>
-
+<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="stylesheet" href="https://unpkg.com/wingcss"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
-loadClicks();
-  setInterval(loadClicks, 5000);
+  $(".voter").click(function(){
+     var voter = $(this).data("voter");
+     $(this).toggleClass("active");
+     if($(this).hasClass("active")){
+        $.post("/api/clicks/up/"+voter, null,
+          function(data,status){
+           loadClicks();
+          });
+     }else{
+        $.post("/api/clicks/down/"+voter, null,
+          function(data,status){
+           loadClicks();
+          });
+     }
+  });
+  
+  $(".add").click(function(){
+     $(this).text("done");
+     $(this).toggleClass("active");
+     $(this).toggleClass("pointer");
+     var voter = $(this).prev().val();
+     $.post("/api/clicks/up/"+voter, null,
+          function(data,status){
+           loadClicks();
+          });
+     $(this).unbind( "click" );
+  });
+  
   $("#up").click(function(){
-    $.post("/api/clicks/up", null,
-    function(data,status){
-      loadClicks();
-    });
+    if(!$(this).hasClass("active")){
+      $(this).toggleClass("active");
+      $("#down").removeClass("active");
+      $.post("/api/clicks/up/apero", null,
+      function(data,status){
+        //loadClicks();
+      });
+    }
   });
   $("#down").click(function(){
-    $.post("/api/clicks/down", null,
-    function(data,status){
-      loadClicks();
-    });
+    if(!$(this).hasClass("active")){
+      $(this).toggleClass("active");
+      $("#up").removeClass("active");
+      $.post("/api/clicks/down/apero", null,
+      function(data,status){
+        //loadClicks();
+      });
+    }
   });
   
 });
 
 function loadClicks(){
   $.get( "/api/clicks", function( data ) {
-  $("#counterUp").text(data.thumbsUp);
-  $("#counterDown").text(data.thumbsDown);
+
 });
 }
 </script>
 <style>
+.largerFont{
+   font-size: 1.5em;
+}
+.xlargerFont{
+   font-size: 2em;
+}
 .largebuttons{
    font-size: 5em;
 }
 .result{
    font-size: 3em;
 }
+.pointer{
+	cursor: pointer;
+}
+.active{
+	color: #00FF00;
+}
 </style>
 </head>
 <body>
 
 <div class="container">
-	
 	<div class="row">
       <div class="col center"><img alt="logo" src="/cloud-native-computing-meetup-bern-logo.jpg"/></div>
     </div>
 	<div class="row">
-      <div class="col center"><h1 id="clicker">Wer freut sich aufs Apéro? </h1></div>
-    </div>
-    
-    <div class="row">
-      <div class="col center"><button id="up" class="largebuttons">👍</button></div>
-      <div class="col center"><button id="down" class="largebuttons">👎</button></div>
+      <div class="col center"><h1 id="clicker">Themen für das nächste Meetup? </h1></div>
     </div>
     <div class="row">
-      <div class="col center"><span id="counterUp" class="result"></span></div>
-      <div class="col center"><span id="counterDown" class="result"></span></div>
+      <div class="col"><p class="largerFont">Serverless</p></div>
+      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="serverless">thumb_up</i></div>
     </div>
-    
+    <div class="row">
+      <div class="col"><p class="largerFont">Security</p></div>
+      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="security">thumb_up</i></div>
+    </div>
+    <div class="row">
+      <div class="col"><p class="largerFont"></p></div>
+      <div class="col center"><input type="text" name="fname"><i class="material-icons xlargerFont pointer add">add</i></div>
+    </div>
+    <div class="row">
+      <div class="col center"><h1>Wer freut sich aufs Apéro? </h1></div>
+    </div>
+    <div class="row">
+      <div class="col center"><i id="up" class="material-icons largebuttons pointer" data-voter="apero">thumb_up</i></div>
+      <div class="col center"><i id="down" class="material-icons largebuttons pointer" data-voter="apero">thumb_down</i></div>
+    </div>
     <div class="row">
       <div class="col center">
         <p>Prometheus Actuator Endpoint: <a href="/actuator/prometheus">/actuator/prometheus</a><br/>
         Source Code: <a target="_new" href="https://github.com/phil-pona/cloud-native-computing-meetup-bern">https://github.com/phil-pona/cloud-native-computing-meetup-bern</a><br/>
         </p></div>
     </div>
-    
 </div>
 </body>
 </html>
