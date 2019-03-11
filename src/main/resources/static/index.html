@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Cloud Native Meetup Example</title>
+
+<link rel="stylesheet" href="https://unpkg.com/wingcss"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+loadClicks();
+  setInterval(loadClicks, 5000);
+  $("#up").click(function(){
+    $.post("/api/clicks/up", null,
+    function(data,status){
+      loadClicks();
+    });
+  });
+  $("#down").click(function(){
+    $.post("/api/clicks/down", null,
+    function(data,status){
+      loadClicks();
+    });
+  });
+  
+});
+
+function loadClicks(){
+  $.get( "/api/clicks", function( data ) {
+  $("#counterUp").text(data.thumbsUp);
+  $("#counterDown").text(data.thumbsDown);
+});
+}
+</script>
+<style>
+.largebuttons{
+   font-size: 5em;
+}
+.result{
+   font-size: 3em;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+	
+	<div class="row">
+      <div class="col center"><img alt="logo" src="/cloud-native-computing-meetup-bern-logo.jpg"/></div>
+    </div>
+	<div class="row">
+      <div class="col center"><h1 id="clicker">Wer freut sich aufs Apéro? </h1></div>
+    </div>
+    
+    <div class="row">
+      <div class="col center"><button id="up" class="largebuttons">👍</button></div>
+      <div class="col center"><button id="down" class="largebuttons">👎</button></div>
+    </div>
+    <div class="row">
+      <div class="col center"><span id="counterUp" class="result"></span></div>
+      <div class="col center"><span id="counterDown" class="result"></span></div>
+    </div>
+    
+    <div class="row">
+      <div class="col center">
+        <p>Prometheus Actuator Endpoint: <a href="/actuator/prometheus">/actuator/prometheus</a><br/>
+        Source Code: <a target="_new" href="https://github.com/phil-pona/cloud-native-computing-meetup-bern">https://github.com/phil-pona/cloud-native-computing-meetup-bern</a><br/>
+        </p></div>
+    </div>
+    
+</div>
+</body>
+</html>
