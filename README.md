@@ -17,3 +17,9 @@ the Votes are exposed as:
 * Result Thumbs: Gauge
 
 the prometheus Metrics can be scraped on the `/actuator/prometheus` endpoint
+
+## License
+
+see [LICENSE](LICENSE)
+
+Uses JQuery Bar Rating Plugin, with MIT License: https://github.com/antennaio/jquery-bar-rating

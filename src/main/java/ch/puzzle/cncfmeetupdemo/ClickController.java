@@ -19,12 +19,14 @@ import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 
 @RestController
-@RequestMapping(value = "/api/clicks")
+@RequestMapping(value = "/api")
 public class ClickController {
 
 	private final Counter meetupThumbsUpCounter;
 	private final Counter meetupThumbsDownCounter;
-	private final Counter meetupClicks;
+	private final Counter meetupThumbs;
+	private final Counter meetupStars;
+	private final Counter meetupStarsVotes;
 	
 	private final Map<String, AtomicInteger> gauges;
 	private final MeterRegistry meterRegistry;
@@ -33,14 +35,15 @@ public class ClickController {
 	@Autowired
 	public ClickController(MeterRegistry meterRegistry) {
 		this.meterRegistry = meterRegistry;
-		gauges = new HashMap<>();
-//		gauges.put("serverless", meterRegistry.gauge("meetup.thumbs", Arrays.asList(Tag.of("thumb", "serverless")), new AtomicInteger(0)));
-//		gauges.put("security", meterRegistry.gauge("meetup.thumbs", Arrays.asList(Tag.of("thumb", "secuirty")), new AtomicInteger(0)));
+		this.gauges = new HashMap<>();
 		
 		this.meetupThumbsUpCounter = meterRegistry.counter("meetup.thumbs.up.count");
 		this.meetupThumbsDownCounter = meterRegistry.counter("meetup.thumbs.down.count");
-		this.meetupClicks = meterRegistry.counter("meetup.thumbs.total");
+		this.meetupThumbs = meterRegistry.counter("meetup.thumbs.total");
+		this.meetupStars = meterRegistry.counter("meetup.stars.total");
+		this.meetupStarsVotes = meterRegistry.counter("meetup.stars.votes.total");
 	}
+	
 
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping(value="/up/{voter}")
@@ -51,7 +54,7 @@ public class ClickController {
 		gauges.get(voter).incrementAndGet();
 		
 		meetupThumbsUpCounter.increment();
-		meetupClicks.increment();
+		meetupThumbs.increment();
 	}
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping(value="/down/{voter}")
@@ -63,26 +66,37 @@ public class ClickController {
 		gauges.get(voter).decrementAndGet();
 
 		meetupThumbsDownCounter.increment();
-		meetupClicks.increment();
+		meetupThumbs.increment();
+	}
+	
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping(value="/stars/{stars}")
+	public void postStars(@PathVariable("stars") int stars) {
+		meetupStars.increment(stars);
+		meetupStarsVotes.increment();
 	}
 
 	@GetMapping
 	public Metrics getAll() {
-		return new Metrics(meetupThumbsUpCounter.count(), meetupThumbsDownCounter.count(), meetupClicks.count(), gauges);
+		return new Metrics(meetupThumbsUpCounter.count(), meetupThumbsDownCounter.count(), meetupThumbs.count(), meetupStars.count(), meetupStarsVotes.count(), gauges);
 	}
 	
 	public class Metrics {
 		
 		private double thumbsUp;
 		private double thumbsDown;
-		private double clicks;
+		private double thumbs;
+		private double meetupStars;
+		private double meetupStarsVotes;
 		private Map<String, AtomicInteger> gauges;
-		public Metrics(double thumbsUp, double thumbsDown, double clicks, Map<String, AtomicInteger> gauges) {
+		public Metrics(double thumbsUp, double thumbsDown, double thumbs, double meetupStars, double meetupStarsVotes, Map<String, AtomicInteger> gauges) {
 			super();
 			this.thumbsUp = thumbsUp;
 			this.thumbsDown = thumbsDown;
-			this.clicks = clicks;
+			this.thumbs = thumbs;
 			this.gauges = gauges;
+			this.meetupStars = meetupStars;
+			this.meetupStarsVotes = meetupStarsVotes;
 		}
 		public double getThumbsUp() {
 			return thumbsUp;
@@ -91,10 +105,22 @@ public class ClickController {
 			return thumbsDown;
 		}
 		public double getClicks() {
-			return clicks;
+			return thumbs;
 		}
 		public Map<String, AtomicInteger> getGauges() {
 			return gauges;
+		}
+		public double getMeetupStars() {
+			return meetupStars;
+		}
+		public void setMeetupStars(double meetupStars) {
+			this.meetupStars = meetupStars;
+		}
+		public double getMeetupStarsVotes() {
+			return meetupStarsVotes;
+		}
+		public void setMeetupStarsVotes(double meetupStarsVotes) {
+			this.meetupStarsVotes = meetupStarsVotes;
 		}
 	}
 }
