@@ -118,40 +118,78 @@ function loadClicks(){
 <body>
 
 <div class="container">
+    <div class="row">
+      <div class="col center"><h1 id="title">Cloud Native Bern Meetup - Survey </h1></div>
+    </div>
 	<div class="row">
-      <div class="col center"><img alt="logo" src="/images/cloud-native-computing-meetup-bern-logo.jpg"/></div>
+      <div class="col center"><img alt="logo" src="/images/cloud-native-computing-meetup-bern-logo.png"/></div>
     </div>
 	<div class="row">
-      <div class="col center"><h1 id="clicker">Themen für das nächste Meetup? </h1></div>
+      <div class="col center"><h2 id="clicker">Themen für das nächste Meetup? </h2></div>
     </div>
     <div class="row">
-      <div class="col"><h3>Traffic</h3><p><strong>Networking, Service Discovery, Load Balancing, Service Mesh, RPC, Pubsub</strong><br/> Envoy, Linkerd, NATS, gRPC, CoreDNS, CNI
-      </p></div>
-      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Traffic">thumb_up</i></div>
+      <div class="col"><h3>Application & Development</h3><p><strong>Application Definition & Image Build, Streaming & Messaging, Database</strong><br/>Helm, Kustomize, Apache Kafka, Cloudevents, Nats, Vitesse, Tikv, Postgresql, ...</p></div>
+      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Application and Development">thumb_up</i></div>
     </div>
     <div class="row">
-      <div class="col"><h3>Governance</h3><p><strong>Security, Auth, Authorization, Auditing, Policy Enforcement, Compliance, GDPR, Cost Management</strong><br/>SPIFFE, SPIRE, Open Policy Agent, Notary, TUF,  Falco,</p></div>
-      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Governance">thumb_up</i></div>
+      <div class="col"><h3>Case studies</h3><p><strong>Real Life Experiences, Production Experience, Proof of Concepts</strong><br/>All CNCF Technologies</p></div>
+      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Case studies">thumb_up</i></div>
     </div>
     <div class="row">
-      <div class="col"><h3>App Dev, Ops & Testing</h3><p><strong>PaaS, Serverless, Operators, CI/CD,  Conformance, Chaos Eng, Scalability and Reliability measurement etc.</strong><br/> Helm, CloudEvents, Telepresence, Buildpacks, (CNCF CI)</p></div>
-      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="App Dev, Ops & Testing">thumb_up</i></div>
+      <div class="col"><h3>CI/CD</h3><p><strong>Continuous Integration & Delivery</strong><br/>Gitlab, Jenkins, Jenkins X, argo, Travis, ...</p></div>
+      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="CICD">thumb_up</i></div>
     </div>
     <div class="row">
-      <div class="col"><h3>Core and Applied Architectures</h3><p><strong>Orchestration, Scheduling, Container runtimes, Sandboxing Technologies, Packaging and Distribution, Specialized architectures thereof (e.g. Edge, IoT, Big Data, AI/ML, etc)</strong><br/> Kubernetes, containerd, rkt, Harbor, Dragonfly, Virtual Kubelet</p></div>
-      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Core and Applied Architectures">thumb_up</i></div>
+      <div class="col"><h3>Community</h3><p><strong>Events, Organisation and Community Management</strong><br/>CNCF in general, Kubecon, Promcon, Meetings, Participation, becoming a Member, ...</p></div>
+      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Community">thumb_up</i></div>
     </div>
     <div class="row">
-      <div class="col"><h3>Storage</h3><p><strong>Block and File Stores, Databases, Key-Value stores etc. </strong><br/> TiKV, etcd, Vitess, Rook</p></div>
+      <div class="col"><h3>Customizing & Extending Kubernetes</h3></div>
+      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Customizing and Extending Kubernetes">thumb_up</i></div>
+    </div>
+    <div class="row">
+      <div class="col"><h3>Machine Learning & Data</h3></div>
+      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Machine Learning and Data">thumb_up</i></div>
+    </div>
+    <div class="row">
+      <div class="col"><h3>Networking</h3><p><strong>Cloud Native Netword, Service Discovery</strong><br/>CNI, SDN, CoreDNS, gRPC, KubeEdge, Network Service Mesh, ...</p></div>
+      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Networking">thumb_up</i></div>
+    </div>
+    <div class="row">
+      <div class="col"><h3>Observability</h3><p><strong>Monitoring, Logging, Tracing, Chaos Engineering</strong><br/>Prometheus, Grafana, Thanos, fluentd, Jaeger, OpenTracing, ...</p></div>
+      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Observability">thumb_up</i></div>
+    </div>
+    <div class="row">
+      <div class="col"><h3>Operations</h3></div>
+      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Operations">thumb_up</i></div>
+    </div>
+    <div class="row">
+      <div class="col"><h3>Performance</h3></div>
+      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Performance">thumb_up</i></div>
+    </div>
+    <div class="row">
+      <div class="col"><h3>Orchestration & Management - Plattform</h3><p><strong>Scheduling & Orchestration, Coordination & Service Discovery, Kubernetes Distributions</strong><br/>Kubernetes, OpenShift, Rancher, etcd, EKS, GKE, AKS, ...</p></div>
+      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Runtimes">thumb_up</i></div>
+    </div>
+    <div class="row">
+      <div class="col"><h3>Runtimes</h3><p><strong>Container Runtime</strong><br/>Containerd, cri-o, ...</p></div>
+      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Runtimes">thumb_up</i></div>
+    </div>
+    <div class="row">
+      <div class="col"><h3>Security, Identity & Policy</h3><p><strong>Security & Complicance, SSO, Security Management, Key Management, Secrets</strong><br/>Notary, Open Policy Agent (OPA), Keycloak, The Update Framework (TUF), SPIFFE/SPIRE, ...</p></div> 
+      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Security, Identity and Policy">thumb_up</i></div>
+    </div>
+    <div class="row">
+      <div class="col"><h3>Serverless</h3><p><strong>Tools and Frameworks, Platforms hosted and self hosted</strong></p></div>
+      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Serverless">thumb_up</i></div>
+    </div>
+    <div class="row">
+      <div class="col"><h3>Service Mesh</h3><p><strong>Service Mesh, Service Proxy, API Gateway</strong><br/>Envoy, Linkerd, Istio, Consul</p></div>
+      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Service Mesh">thumb_up</i></div>
+    </div>
+    <div class="row">
+      <div class="col"><h3>Storage</h3><p><strong>Cloud Native Storage</strong><br/>Rook, CSI, ceph, S3, Gluster</p></div>
       <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Storage">thumb_up</i></div>
-    </div>
-    <div class="row">
-      <div class="col"><h3>High Performance Computing</h3><p>Machine Learning and Artificial Intelligence</p></div>
-      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="High Performance Computing">thumb_up</i></div>
-    </div>
-    <div class="row">
-      <div class="col"><h3>Self-Service</h3><p>Developer Experience, Self-Service Lösungen </p></div>
-      <div class="col center"><i class="material-icons xlargerFont pointer voter" data-voter="Self-Service">thumb_up</i></div>
     </div>
     <div class="row">
       <div class="col"><h3>Weitere Themen</h3></div>
@@ -187,7 +225,7 @@ function loadClicks(){
     <div class="row">
       <div class="col center">
         <p>Prometheus Actuator Endpoint: <a href="/actuator/prometheus">/actuator/prometheus</a><br/>
-        Source Code: <a target="_new" href="https://github.com/phil-pona/cloud-native-computing-meetup-bern">https://github.com/phil-pona/cloud-native-computing-meetup-bern</a><br/>
+        Source Code: <a target="_new" href="https://github.com/cloudnativebern/survey-prometheus-app-monitoring">https://github.com/cloudnativebern/survey-prometheus-app-monitoring</a><br/>
         </p></div>
     </div>
 </div>
